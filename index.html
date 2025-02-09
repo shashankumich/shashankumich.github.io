@@ -1,184 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Will You Be My Valentine?</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valentines Day</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .gradient-background {
+      background: rgb(255, 208, 229);
+      background: linear-gradient(180deg, rgba(255, 208, 229, 1) 0%, rgba(255, 232, 242, 1) 36%, rgba(255, 255, 255, 1) 100%);
+    }
 
-        body {
-            font-family: 'Garamond', serif;
-            background: #f9f3e9;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 2rem;
-            color: #4a4a4a;
-            background-image: url('/api/placeholder/800/600');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-        }
+    .bounce2 {
+      animation: bounce2 2s ease infinite;
+    }
 
-        .container {
-            max-width: 800px;
-            text-align: center;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin: 2rem;
-            border: 2px solid #8b4513;
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            color: #8b4513;
-            margin-bottom: 1.5rem;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-        }
-
-        .message {
-            font-size: 1.2rem;
-            line-height: 1.6;
-            margin-bottom: 2rem;
-            padding: 1rem;
-            border: 1px solid #deb887;
-            border-radius: 10px;
-            background: rgba(255, 255, 255, 0.8);
-        }
-
-        .button-container {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .btn {
-            padding: 1rem 2rem;
-            font-size: 1.2rem;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background: #8b4513;
-            color: white;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .heart {
-            font-size: 4rem;
-            color: #ff6b6b;
-            margin: 1rem 0;
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        #response {
-            margin-top: 2rem;
-            font-size: 1.5rem;
-            color: #ff6b6b;
-            font-weight: bold;
-        }
-
-        .map-border {
-            border: 8px solid transparent;
-            border-image: url('/api/placeholder/100/100') 30 stretch;
-            padding: 1rem;
-        }
-    </style>
+    @keyframes bounce2 {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+      }
+      40% {
+        transform: translateY(-20px);
+      }
+      60% {
+        transform: translateY(-10px);
+      }
+    }
+  </style>
 </head>
-<body>
-    <div class="container map-border">
-        <h1>My Dearest Valentine</h1>
-        
-        <div class="heart">❤️</div>
-        
-        <div class="message">
-            <p>Just as explorers of old charted their course across vast seas,<br>
-            my heart has navigated its way to you.</p>
-            <p>Through every season and every adventure,<br>
-            you've painted my world with colors I never knew existed.</p>
-            <p>Like the most precious masterpiece in nature's gallery,<br>
-            you make every day more beautiful.</p>
-            <br>
-            <p>Would you do me the honor of being my Valentine?</p>
-        </div>
-
-        <div class="button-container">
-            <button class="btn" onclick="respond('yes')">Yes, I will! ❤️</button>
-            <button class="btn" onclick="respond('no')" style="background: #6b6b6b;">I need time to think</button>
-        </div>
-
-        <div id="response" class="hidden"></div>
+<body class="gradient-background">
+  <div class="flex items-center justify-center h-screen">
+    <div class="flex flex-col items-center p-4">
+      <img id="imageDisplay" src="./images/image1.gif" alt="Cute kitten with flowers" class="rounded-md h-[300px]" style="object-fit: cover;" />
+      <h2 id="valentineQuestion" class="text-4xl font-bold italic text-[#bd1e59] my-4">Will you be my Valentine?</h2>
+      <div class="flex gap-4 pt-[20px] items-center" id="responseButtons">
+        <button id="yesButton"
+          class="bounce2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-medium disabled:pointer-events-none disabled:opacity-50 hover:bg-green-400 min-h-12 min-w-[75px] px-4 py-2 bg-green-500 text-white transition">
+          Yes
+        </button>
+        <button id="noButton"
+          class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-[20px] font-medium transition disabled:pointer-events-none disabled:opacity-50 hover:bg-red-700 h-12 min-w-[75px] w-auto px-4 py-2 bg-red-500 text-white">
+          No
+        </button>
+      </div>
     </div>
+  </div>
 
-    <script>
-        function respond(answer) {
-            const responseDiv = document.getElementById('response');
-            responseDiv.classList.remove('hidden');
-            
-            if (answer === 'yes') {
-                responseDiv.textContent = "You've made me the happiest person in the world! 💖";
-                document.querySelectorAll('.btn').forEach(btn => btn.style.display = 'none');
-                confetti();
-            } else {
-                responseDiv.textContent = "Take all the time you need. My heart will wait. 🌹";
-                document.querySelectorAll('.btn').forEach(btn => btn.style.display = 'none');
-            }
+  <script type="module">
+    import confetti from 'https://cdn.skypack.dev/canvas-confetti';
+    const yesButton = document.getElementById('yesButton');
+    const noButton = document.getElementById('noButton');
+    const imageDisplay = document.getElementById('imageDisplay');
+    const valentineQuestion = document.getElementById('valentineQuestion');
+    const responseButtons = document.getElementById('responseButtons');
+  
+    let noClickCount = 0;
+    let buttonHeight = 48; // Starting height in pixels
+    let buttonWidth = 80;
+    let fontSize = 20; // Starting font size in pixels
+    const imagePaths = [
+      "./images/image1.gif",
+      "./images/image2.gif",
+      "./images/image3.gif",
+      "./images/image4.gif",
+      "./images/image5.gif",
+      "./images/image6.gif",
+      "./images/image7.gif"
+    ];
+  
+    noButton.addEventListener('click', function() {
+      if (noClickCount < 5) {
+        noClickCount++;
+        imageDisplay.src = imagePaths[noClickCount];
+        buttonHeight += 35; // Increase height by 5px on each click
+        buttonWidth += 35;
+        fontSize += 25; // Increase font size by 1px on each click
+        yesButton.style.height = `${buttonHeight}px`; // Update button height
+        yesButton.style.width = `${buttonWidth}px`;
+        yesButton.style.fontSize = `${fontSize}px`; // Update font size
+        if (noClickCount < 6) {
+          noButton.textContent = ["No", "Are you sure?", "Bubu please", "Don't do this to me :(", "You're breaking my heart", "I'm gonna cry..."][noClickCount];
         }
-
-        function confetti() {
-            for (let i = 0; i < 50; i++) {
-                createConfetti();
-            }
-        }
-
-        function createConfetti() {
-            const confetti = document.createElement('div');
-            confetti.style.position = 'fixed';
-            confetti.style.width = '10px';
-            confetti.style.height = '10px';
-            confetti.style.backgroundColor = ['#ff6b6b', '#8b4513', '#deb887'][Math.floor(Math.random() * 3)];
-            confetti.style.left = Math.random() * 100 + 'vw';
-            confetti.style.top = '-10px';
-            confetti.style.borderRadius = '50%';
-            confetti.style.zIndex = '1000';
-            
-            document.body.appendChild(confetti);
-            
-            const animation = confetti.animate([
-                { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
-                { transform: `translateY(${window.innerHeight}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
-            ], {
-                duration: 2000 + Math.random() * 1000,
-                easing: 'cubic-bezier(.37,0,.63,1)'
-            });
-            
-            animation.onfinish = () => confetti.remove();
-        }
-    </script>
+      }
+    });
+  
+    yesButton.addEventListener('click', () => {
+      imageDisplay.src = './images/image7.gif'; // Change to image7.gif
+      valentineQuestion.textContent = "Yayyy!! :3"; // Change the question text
+      responseButtons.style.display = 'none'; // Hide both buttons
+      confetti(); // Trigger confetti animation
+    });
+  </script>  
 </body>
 </html>
