@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be My Valentine?</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Garamond', serif;
+            background: #f9f3e9;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+            color: #4a4a4a;
+            background-image: url('/api/placeholder/800/600');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .container {
+            max-width: 800px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin: 2rem;
+            border: 2px solid #8b4513;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #8b4513;
+            margin-bottom: 1.5rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .message {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            padding: 1rem;
+            border: 1px solid #deb887;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #8b4513;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .heart {
+            font-size: 4rem;
+            color: #ff6b6b;
+            margin: 1rem 0;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #response {
+            margin-top: 2rem;
+            font-size: 1.5rem;
+            color: #ff6b6b;
+            font-weight: bold;
+        }
+
+        .map-border {
+            border: 8px solid transparent;
+            border-image: url('/api/placeholder/100/100') 30 stretch;
+            padding: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container map-border">
+        <h1>My Dearest Valentine</h1>
+        
+        <div class="heart">❤️</div>
+        
+        <div class="message">
+            <p>Just as explorers of old charted their course across vast seas,<br>
+            my heart has navigated its way to you.</p>
+            <p>Through every season and every adventure,<br>
+            you've painted my world with colors I never knew existed.</p>
+            <p>Like the most precious masterpiece in nature's gallery,<br>
+            you make every day more beautiful.</p>
+            <br>
+            <p>Would you do me the honor of being my Valentine?</p>
+        </div>
+
+        <div class="button-container">
+            <button class="btn" onclick="respond('yes')">Yes, I will! ❤️</button>
+            <button class="btn" onclick="respond('no')" style="background: #6b6b6b;">I need time to think</button>
+        </div>
+
+        <div id="response" class="hidden"></div>
+    </div>
+
+    <script>
+        function respond(answer) {
+            const responseDiv = document.getElementById('response');
+            responseDiv.classList.remove('hidden');
+            
+            if (answer === 'yes') {
+                responseDiv.textContent = "You've made me the happiest person in the world! 💖";
+                document.querySelectorAll('.btn').forEach(btn => btn.style.display = 'none');
+                confetti();
+            } else {
+                responseDiv.textContent = "Take all the time you need. My heart will wait. 🌹";
+                document.querySelectorAll('.btn').forEach(btn => btn.style.display = 'none');
+            }
+        }
+
+        function confetti() {
+            for (let i = 0; i < 50; i++) {
+                createConfetti();
+            }
+        }
+
+        function createConfetti() {
+            const confetti = document.createElement('div');
+            confetti.style.position = 'fixed';
+            confetti.style.width = '10px';
+            confetti.style.height = '10px';
+            confetti.style.backgroundColor = ['#ff6b6b', '#8b4513', '#deb887'][Math.floor(Math.random() * 3)];
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.top = '-10px';
+            confetti.style.borderRadius = '50%';
+            confetti.style.zIndex = '1000';
+            
+            document.body.appendChild(confetti);
+            
+            const animation = confetti.animate([
+                { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+                { transform: `translateY(${window.innerHeight}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+            ], {
+                duration: 2000 + Math.random() * 1000,
+                easing: 'cubic-bezier(.37,0,.63,1)'
+            });
+            
+            animation.onfinish = () => confetti.remove();
+        }
+    </script>
+</body>
+</html>
