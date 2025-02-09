@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Thank You!</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .gradient-background {
+      background: rgb(255, 229, 240);
+      background: linear-gradient(
+        180deg,
+        rgba(255, 229, 240, 1) 0%,
+        rgba(255, 249, 252, 1) 50%,
+        rgba(255, 255, 255, 1) 100%
+      );
+    }
+  </style>
+</head>
+<body class="gradient-background h-screen flex items-center justify-center">
+  <div class="p-6 text-center">
+    <h1 class="text-4xl font-extrabold text-pink-700 mb-4">
+      Thank you for being my girlfriend!
+    </h1>
+    <p class="text-xl text-gray-600 max-w-lg mx-auto">
+      I’m so grateful to have you in my life and can’t wait for our special date together. 
+      You mean the world to me.  
+    </p>
+  </div>
+
+  <!-- Confetti Script -->
+  <script type="module">
+    import confetti from 'https://cdn.skypack.dev/canvas-confetti';
+
+    // Fire confetti on page load
+    window.addEventListener('load', () => {
+      confetti({
+        particleCount: 200,
+        spread: 70,
+        origin: { y: 0.6 },
+      });
+    });
+  </script>
+</body>
+</html>
